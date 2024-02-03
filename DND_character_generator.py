@@ -11,13 +11,12 @@ wisdom = 0
 charisma = 0
 character_speed = 0
 
-# Defining stat bonuses
-str_modifier = 0
-dex_modifier = 0
-con_modifier = 0
-int_modifier = 0
-wis_modifier = 0
-cha_modifier = 0
+# Defining modifiers and skills
+str_modifier = athletics = 0
+dex_modifier = acrobatics = sleight_of_hand = stealth = 0
+int_modifier = arcana = history = investigation = nature = religion = 0
+wis_modifier = animal_handling = insight = medicine = perception = survival = 0
+cha_modifier = deception = intimidation = performance = persuasion = 0
 
 # Define races
 race_list = ["human", "halfling", "elf", "dwarf"]
@@ -35,6 +34,7 @@ class_list = ["cleric", "rogue", "fighter", "wizard"]
 language_list = ["dwarvish", "elvish", "giant", "gnomish", "goblin", "halfling", "orc"]
 language = "common" # By default, all characters have this language
 language2 = "none" # This is changed later
+language3 = "none" # This MAY be changed later depending on the subclass
 
 # Define enpty stat spots
 favorite1 = 0
@@ -52,11 +52,10 @@ print()
 race = random.choice(race_list)
 subrace = "none"
 
-print("We have chosen the", race, "race for you...")
+print("We have chosen the race of", race, "for you...")
 
 if race == "human":
     print("Humans are the squishiest race option. Luckily, they are also the most flexible, giving an extra +1 to all of your stats.")
-    print()
     strength += 1
     dexterity += 1
     constitution += 1
@@ -65,19 +64,15 @@ if race == "human":
     charisma += 1
 elif race == "halfling":
     print("Halflings are half people, because they're very smol beings. Due to this, they get a +2 in dexterity.")
-    print()
     dexterity += 2
-
 elif race == "elf":
     print("Elves are elegant people, but also dangerous. They get a +2 in dexterity.")
-    print()
     dexterity += 2
-
-elif race == "dwarf":
-    print("Dwarves are small people, but they are very hard workers. Just look at Thorin Oakenshield! Dwarves get a +2 in constitution.")
-    print()
+else:
+    print("Dwarves are small people, but they are very hard workers. Dwarves get a +2 in constitution.")
     constitution += 2
 
+print()
 
 # The only race to not have subraces is human, so we choose that for the user here
 if race == "halfling" or race == "elf" or race == "dwarf":
@@ -86,35 +81,30 @@ if race == "halfling" or race == "elf" or race == "dwarf":
         subrace = random.choice(halfling_subrace_list)
         if subrace == "lightfoot":
             print("Your character is a Lightfoot Halfling. As implied, they are light on their feet and very charming. They give you a +1 to charisma.")
-            print()
             charisma += 1
         else:
             print("Your character is a Stout Halfling. Like implied, they are short and stout. They get a +1 to constitution.")
-            print()
             constitution += 1
     elif race == "elf":
         subrace = random.choice(elf_subrace_list)
         if subrace == "high":
             print("You character is a High Elf. They are very intelligent and scholarly, with a +1 to intelligence.")
-            print()
             intelligence += 1
         else:
             print("Your character is a Wood Elf. They have an innate connection to nature and wildlife. They get a +1 to wisdom.")
-            print()
             wisdom += 1
     elif race == "dwarf":
         subrace = random.choice(dwarf_subrace_list)
         if subrace == "hill":
             print("Your character is a Hill Dwarf. They are an intelligent bunch, giving your character a +1 to wisdom.")
-            print()
             intelligence += 1
         else:
             print("Your character is a Mountain Elf. To handle the brisk winters, they have grown to be hardy. They get a +2 to strength.")
-            print()
             strength += 2
 else:
     print("Your character does not get a subrace, sadly.")
-    print()
+
+print()
 
 
 # Defining what races have which languages
@@ -125,16 +115,20 @@ elif race == "elf":
 elif race == "dwarf":
     language2 = "dwarvish"
 
-
 # Some races have random languages
+def language_randomizer():
+    lang = random.choice(language_list)
+    print("Your character's additional language will be " + lang + ".")
+    print()
+
 if race == "human":
     print("Humans can speak common, but they also get a second, random language. We have chosen this for you as well.")
-    language2 = random.choice(language_list)
-    print("Your character's second language will be " + language2 + ".")
+    language_randomizer()
+    lang = language2
 elif subrace == "high":
     print("High elves get an extra random language, We have chosen this for you as well.")
-    language3 = random.choice(language_list)
-    print("Your character's third language will be " + language3 + ".")
+    language_randomizer()
+    lang = language3
 
 
 # Character speeds vary too
@@ -148,13 +142,87 @@ elif race == "elf":
     else:
         speed = 30
 
-print("Your character will have a speed of", speed, "due to their race classifications.")
+print("Your character will have a speed of", speed)
 print()
 
 # Assigning the character a background
-background = "none"
+background = random.choice(background_list)
+
+def additional_languages():
+    if language2 == "none":
+        language2 = language_randomizer()
+        language3 = language_randomizer()
+        print("You additionally have these languages:", language2, "and", language3)
+        print()
+    elif language3 == "none":
+        language3 = language_randomizer()
+        language4 = language_randomizer()
+        print("You additionally have these languages:", language3, "and", language4)
+        print()
+    else:
+        language4 = language_randomizer()
+        language5 = language_randomizer()
+        print("You additionally have these languages:", language4, "and", language5)
+        print()
 
 
+print("Your character background has also been determined.")
+
+if background == "criminal":
+    print("Criminals are very aware of their surroundings and how they are perceived. They are proficient in deception and stealth.")
+    deception += 1
+    stealth += 1
+    print("Criminals are good with their hands, so they also are proficient in a gaming set and the thieves' tools.")
+    tool_proficiency = ["one type of gaming set", "thieves' tools"]
+    print("You will also get a crowbar, a set of dark common clothes, and 15 gold pieces.")
+    equipment = ["crowbar"]
+    clothes = ["dark common clothing"]
+    gold = 15
+elif background == "soldier":
+    print("Soldiers are mtough masters of combat. They are proficient in athletics and intimidation.")
+    athletics += 1
+    intimidation += 1
+    print("Solders have learned how to operate machinery, but also need to spend time relaxing. They are proficient in a gaming set and land vehicles.")
+    tool_proficiency = ["one type of gaming set", "land vehicles"]
+    print("You also get an insignia of rank, a trophy taken from a fallen enemy, common clothes, and 10 gold pieces.")
+    equipment = ["insignia of rank", "trophy taken from fallen enemy"]
+    clothes = ["commom clothing"]
+    gold = 10
+    print()
+    special_item = input("Soldiers also get either bone dice or a deck of cards. Which would you like you character to have? ")
+    equipment.append(special_item)
+elif background == "sage":
+    print("Sages are masters of history and the arcane. They are proficient in arcana and history.")
+    arcana += 1
+    history += 1
+    print("Sages need to know how to read in multiple languages to earn more knowledge, so they get 2 additional random languages.")
+    additional_languages()
+    print("You also get a bottle of black ink, a quill, a small knife, a letter from a dead colleague, common clothes, and 10 gold pieces.")
+    equipment = ["bottle of black ink", "quill", "small knife", "letter from a dead colleague"]
+    clothes = ["common clothing"]
+    gold = 10
+else:
+    print("Acolytes are religious folk, so they are proficient in insight and religion.")
+    insight += 1
+    religion += 1
+    print("Acolytes are scholars of their religion, so they need to read in multiple languages. They get 2 additional random languages.")
+    additional_languages()
+    print("You also get a holy symbol, prayer book, vestments, common clothes, and 15 gold pieces.")
+    equipment = ["holy symbol", "prayer book"]
+    clothes = ["vestments", "common clothing"]
+    gold = 15
+
+print()
 
 # Defining stats, 3-18
-#if strength == 3:
+
+# Defining strength modifiers for 
+def modifier(stat):
+    return (stat - 10) // 2
+
+str_modifier = modifier(strength)
+dex_modifier = modifier(dexterity)
+con_modifier = modifier(constitution)
+int_modifier = modifier(intelligence)
+wis_modifier = modifier(wisdom)
+cha_modifier = modifier(charisma)
