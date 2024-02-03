@@ -116,19 +116,14 @@ elif race == "dwarf":
     language2 = "dwarvish"
 
 # Some races have random languages
-def language_randomizer():
-    lang = random.choice(language_list)
-    print("Your character's additional language will be " + lang + ".")
-    print()
-
 if race == "human":
     print("Humans can speak common, but they also get a second, random language. We have chosen this for you as well.")
-    language_randomizer()
-    lang = language2
+    language2 = random.choice(language_list)
+    print("Your character's additional language will be " + language2 + ".")
 elif subrace == "high":
     print("High elves get an extra random language, We have chosen this for you as well.")
-    language_randomizer()
-    lang = language3
+    language3 = random.choice(language_list)
+    print("Your character's additional language will be " + language3 + ".")
 
 
 # Character speeds vary too
@@ -150,21 +145,20 @@ background = random.choice(background_list)
 
 def additional_languages(language2, language3):
     if language2 == "none":
-        language2 = language_randomizer()
-        language3 = language_randomizer()
+        language2 = random.choice(language_list)
+        language3 = random.choice(language_list)
         print("You additionally have these languages:", language2, "and", language3)
         print()
     elif language3 == "none":
-        language3 = language_randomizer()
-        language4 = language_randomizer()
+        language3 = random.choice(language_list)
+        language4 = random.choice(language_list)
         print("You additionally have these languages:", language3, "and", language4)
         print()
     else:
-        language4 = language_randomizer()
-        language5 = language_randomizer()
+        language4 = random.choice(language_list)
+        language5 = random.choice(language_list)
         print("You additionally have these languages:", language4, "and", language5)
         print()
-
 
 print("Your character background has also been determined.")
 
@@ -196,7 +190,7 @@ elif background == "sage":
     arcana += 1
     history += 1
     print("Sages need to know how to read in multiple languages to earn more knowledge, so they get 2 additional random languages.")
-    additional_languages()
+    additional_languages(language2, language3)
     print("You also get a bottle of black ink, a quill, a small knife, a letter from a dead colleague, common clothes, and 10 gold pieces.")
     equipment = ["bottle of black ink", "quill", "small knife", "letter from a dead colleague"]
     clothes = ["common clothing"]
@@ -249,44 +243,54 @@ random1 = stats_list_sorted[3]
 random2 = stats_list_sorted[4]
 random3 = stats_list_sorted[5]
 
+'''
 def stats_input(filled_in_input):
-    while filled_in_input not in stats_list_sorted:
+    while filled_in_input not in stats_list:
         print("This value is not (or no longer) in the list. Please try again.")
-        input("Which value would you like to use? ")
-    stats_list_sorted.remove(filled_in_input)
+        filled_in_input = int(input("Which value would you like to use? "))
+    else:
+        stats_list.remove(filled_in_input)
+'''
         
 
 # Ask if the user wants to assign values themselves
 print("We can suggest stats based on your class, or you can assign them yourself.")
 print(stats_list_sorted)
 input_the_values = input("This is what was rolled. Would you like to assign the stats yourself? ")
+print()
 
 if input_the_values.lower().strip() == "yes" or input_the_values.lower().strip() == "yeah" or input_the_values.lower().strip() == "sure":
     print("Alright, let's deal with this now.")
 
-    strength_input = input("Which value would you like to put into strength? ")
+    strength_input = int(input("Which value would you like to put into strength? "))
     stats_input(strength_input)
     strength += strength_input
+    stats_list_sorted.remove(strength_input)
 
-    dexterity_input = input("Which value would you like to put into dexterity? ")
+    dexterity_input = int(input("Which value would you like to put into dexterity? "))
     stats_input(dexterity_input)
     dexterity += dexterity_input
+    stats_list_sorted.remove(dexterity_input)
 
-    constitution_input = input("Which value would you like to put into constitution? ")
+    constitution_input = int(input("Which value would you like to put into constitution? "))
     stats_input(constitution_input)
     constitution += constitution_input
+    stats_list_sorted.remove(constitution_input)
 
-    intelligence_input = input("Which value would you like to put into intelligence? ")
+    intelligence_input = int(input("Which value would you like to put into intelligence? "))
     stats_input(intelligence_input)
     intelligence += intelligence_input
+    stats_list_sorted.remove(intelligence_input)
 
-    wisdom_input = input("Which value would you like to put into wisdom? ")
+    wisdom_input = int(input("Which value would you like to put into wisdom? "))
     stats_input(wisdom_input)
     wisdom += wisdom_input
+    stats_list_sorted.remove(wisdom_input)
 
-    charisma_input = input("Which value would you like to put into charisma? ")
+    charisma_input = int(input("Which value would you like to put into charisma? "))
     stats_input(charisma_input)
     charisma += charisma_input
+    stats_list_sorted.remove(charisma_input)
 else:
     print("Awesome. We will use the stats that was automatically roll.")
     if class_type == "cleric":
