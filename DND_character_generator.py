@@ -99,7 +99,7 @@ if race == "halfling" or race == "elf" or race == "dwarf":
             print("Your character is a Hill Dwarf. They are an intelligent bunch, giving your character a +1 to wisdom.")
             intelligence += 1
         else:
-            print("Your character is a Mountain Elf. To handle the brisk winters, they have grown to be hardy. They get a +2 to strength.")
+            print("Your character is a Mountain Dwarf. To handle the brisk winters, they have grown to be hardy. They get a +2 to strength.")
             strength += 2
 else:
     print("Your character does not get a subrace, sadly.")
@@ -148,7 +148,7 @@ print()
 # Assigning the character a background
 background = random.choice(background_list)
 
-def additional_languages():
+def additional_languages(language2, language3):
     if language2 == "none":
         language2 = language_randomizer()
         language3 = language_randomizer()
@@ -179,7 +179,7 @@ if background == "criminal":
     clothes = ["dark common clothing"]
     gold = 15
 elif background == "soldier":
-    print("Soldiers are mtough masters of combat. They are proficient in athletics and intimidation.")
+    print("Soldiers are tough masters of combat. They are proficient in athletics and intimidation.")
     athletics += 1
     intimidation += 1
     print("Solders have learned how to operate machinery, but also need to spend time relaxing. They are proficient in a gaming set and land vehicles.")
@@ -206,7 +206,7 @@ else:
     insight += 1
     religion += 1
     print("Acolytes are scholars of their religion, so they need to read in multiple languages. They get 2 additional random languages.")
-    additional_languages()
+    additional_languages(language2, language3)
     print("You also get a holy symbol, prayer book, vestments, common clothes, and 15 gold pieces.")
     equipment = ["holy symbol", "prayer book"]
     clothes = ["vestments", "common clothing"]
@@ -214,7 +214,127 @@ else:
 
 print()
 
-# Defining stats, 3-18
+
+# Assigning a class
+class_type = random.choice(class_list)
+
+print("We have a class for you as well. There are many details about classes that you can look up on your own.")
+print("You will be a", class_type, "and we will discuss more about their specifics later.")
+print()
+
+# Rolling for stats, mimicking the 5e method of rolling 4d6 and throwing out the lowest roll
+def rolls():
+    rolls = [random.randint(1,6), random.randint(1,6), random.randint(1,6), random.randint(1,6)]
+    rolls.remove(min(rolls))
+    return sum(rolls)
+
+stat1 = rolls()
+stat2 = rolls()
+stat3 = rolls()
+stat4 = rolls()
+stat5 = rolls()
+stat6 = rolls()
+
+# Puts the stats in descending order
+stats_list = [stat1, stat2, stat3, stat4, stat5, stat6]
+stats_list_sorted = sorted(stats_list, reverse = True)
+
+# Assigning suggested stats according to class
+print("For now, we will assign the stats.")
+
+favorite1 = stats_list_sorted[0]
+favorite2 = stats_list_sorted[1]
+favorite3 = stats_list_sorted[2]
+random1 = stats_list_sorted[3]
+random2 = stats_list_sorted[4]
+random3 = stats_list_sorted[5]
+
+def stats_input(filled_in_input):
+    while filled_in_input not in stats_list_sorted:
+        print("This value is not (or no longer) in the list. Please try again.")
+        input("Which value would you like to use? ")
+    stats_list_sorted.remove(filled_in_input)
+        
+
+# Ask if the user wants to assign values themselves
+print("We can suggest stats based on your class, or you can assign them yourself.")
+print(stats_list_sorted)
+input_the_values = input("This is what was rolled. Would you like to assign the stats yourself? ")
+
+if input_the_values.lower().strip() == "yes" or input_the_values.lower().strip() == "yeah" or input_the_values.lower().strip() == "sure":
+    print("Alright, let's deal with this now.")
+
+    strength_input = input("Which value would you like to put into strength? ")
+    stats_input(strength_input)
+    strength += strength_input
+
+    dexterity_input = input("Which value would you like to put into dexterity? ")
+    stats_input(dexterity_input)
+    dexterity += dexterity_input
+
+    constitution_input = input("Which value would you like to put into constitution? ")
+    stats_input(constitution_input)
+    constitution += constitution_input
+
+    intelligence_input = input("Which value would you like to put into intelligence? ")
+    stats_input(intelligence_input)
+    intelligence += intelligence_input
+
+    wisdom_input = input("Which value would you like to put into wisdom? ")
+    stats_input(wisdom_input)
+    wisdom += wisdom_input
+
+    charisma_input = input("Which value would you like to put into charisma? ")
+    stats_input(charisma_input)
+    charisma += charisma_input
+else:
+    print("Awesome. We will use the stats that was automatically roll.")
+    if class_type == "cleric":
+        wisdom += favorite1
+        intelligence += favorite2
+        constitution += favorite3
+        dexterity += random1
+        charisma += random2
+        strength += random3
+    elif class_list == "rogue":
+        dexterity += favorite1
+        constitution += favorite2
+        strength += favorite3
+        charisma += random1
+        wisdom += random2
+        intelligence += random3
+    elif class_list == "fighter":
+        str_or_dex = random.choice(["strong","dextrous"])
+        if str_or_dex == "strong":
+            strength += favorite1
+            constitution += favorite2
+            dexterity += favorite3
+            wisdom += random1
+            charisma += random2
+            intelligence += random3
+        else:
+            dexterity += favorite1
+            constitution += favorite2
+            strength += favorite3
+            wisdom += random1
+            charisma += random2
+            intelligence += random3
+    else:
+        intelligence += favorite1
+        wisdom += favorite2
+        constitution += favorite3
+        dexterity += random1
+        charisma += random2
+        strength += random3
+print()
+
+print("Strength:", strength)
+print("Dexterity:", dexterity)
+print("Constitution:", constitution)
+print("Intelligence:", intelligence)
+print("Wisdom:", wisdom)
+print("Charisma:", charisma)
+print()
 
 # Defining strength modifiers for 
 def modifier(stat):
@@ -226,3 +346,7 @@ con_modifier = modifier(constitution)
 int_modifier = modifier(intelligence)
 wis_modifier = modifier(wisdom)
 cha_modifier = modifier(charisma)
+
+
+# Defining the class information now
+print("We waited to give you class information as there are calculations within your class that require stats.")
