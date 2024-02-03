@@ -243,16 +243,17 @@ random1 = stats_list_sorted[3]
 random2 = stats_list_sorted[4]
 random3 = stats_list_sorted[5]
 
-'''
+filled_in_input = 0
+
 def stats_input(filled_in_input):
     while filled_in_input not in stats_list:
         print("This value is not (or no longer) in the list. Please try again.")
         filled_in_input = int(input("Which value would you like to use? "))
     else:
         stats_list.remove(filled_in_input)
-'''
-        
+        return filled_in_input
 
+        
 # Ask if the user wants to assign values themselves
 print("We can suggest stats based on your class, or you can assign them yourself.")
 print(stats_list_sorted)
@@ -263,34 +264,28 @@ if input_the_values.lower().strip() == "yes" or input_the_values.lower().strip()
     print("Alright, let's deal with this now.")
 
     strength_input = int(input("Which value would you like to put into strength? "))
-    stats_input(strength_input)
+    strength_input = stats_input(strength_input)
     strength += strength_input
-    stats_list_sorted.remove(strength_input)
 
     dexterity_input = int(input("Which value would you like to put into dexterity? "))
-    stats_input(dexterity_input)
+    dexterity_input = stats_input(dexterity_input)
     dexterity += dexterity_input
-    stats_list_sorted.remove(dexterity_input)
 
     constitution_input = int(input("Which value would you like to put into constitution? "))
-    stats_input(constitution_input)
+    constitution_input = stats_input(constitution_input)
     constitution += constitution_input
-    stats_list_sorted.remove(constitution_input)
 
     intelligence_input = int(input("Which value would you like to put into intelligence? "))
-    stats_input(intelligence_input)
+    intelligence_input = stats_input(intelligence_input)
     intelligence += intelligence_input
-    stats_list_sorted.remove(intelligence_input)
 
     wisdom_input = int(input("Which value would you like to put into wisdom? "))
-    stats_input(wisdom_input)
+    wisdom_input = stats_input(wisdom_input)
     wisdom += wisdom_input
-    stats_list_sorted.remove(wisdom_input)
 
     charisma_input = int(input("Which value would you like to put into charisma? "))
-    stats_input(charisma_input)
+    charisma_input = stats_input(charisma_input)
     charisma += charisma_input
-    stats_list_sorted.remove(charisma_input)
 else:
     print("Awesome. We will use the stats that was automatically roll.")
     if class_type == "cleric":
