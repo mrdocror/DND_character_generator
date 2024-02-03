@@ -349,3 +349,4 @@ cha_modifier = modifier(charisma)
 
 # Defining the class information now
 print("We waited to give you class information as there are calculations within your class that require stats.")
+print("However, the information is beyond the scope of code that I feel like writing.")
