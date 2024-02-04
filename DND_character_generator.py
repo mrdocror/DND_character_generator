@@ -48,6 +48,7 @@ random3 = 0
 player_build = input("Would you like a combat, roleplaying, or balanced character? ")
 print()
 
+
 # Display race information
 race = random.choice(race_list)
 subrace = "none"
@@ -106,7 +107,6 @@ else:
 
 print()
 
-
 # Defining what races have which languages
 if race == "halfling":
     language2 = "Halfling"
@@ -139,6 +139,7 @@ elif race == "elf":
 
 print("Your character will have a speed of", speed)
 print()
+
 
 # Assigning the character a background
 background = random.choice(background_list)
@@ -213,7 +214,7 @@ print()
 class_type = random.choice(class_list)
 
 print("We have a class for you as well. There are many details about classes that you can look up on your own.")
-print("You will be a", class_type, "and we will discuss more about their specifics later.")
+print("You will be a", class_type)
 print()
 
 # Rolling for stats, mimicking the 5e method of rolling 4d6 and throwing out the lowest roll
@@ -253,7 +254,6 @@ def stats_input(filled_in_input):
         stats_list.remove(filled_in_input)
         return filled_in_input
 
-        
 # Ask if the user wants to assign values themselves
 print("We can suggest stats based on your class, or you can assign them yourself.")
 print(stats_list_sorted)
@@ -349,4 +349,4 @@ cha_modifier = modifier(charisma)
 
 # Defining the class information now
 print("We waited to give you class information as there are calculations within your class that require stats.")
-print("However, the information is beyond the scope of code that I feel like writing.")
+print("However, the information is beyond the scope of code that can be written at our level of programming.")
