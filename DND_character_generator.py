@@ -1,4 +1,6 @@
-# 2/3/2024 - This code will help easily generate a simple D&D 5e character sheet.
+# This code will help easily generate a simple D&D 5e character sheet.
+#
+# Citation: E. G. Gygax and D. Arneson, D&D Player’s Handbook, 5th ed. Renton, Wyoming: Wizards of the Coast, 2014. 
 
 import random
 
